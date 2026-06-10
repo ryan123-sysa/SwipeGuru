@@ -812,13 +812,16 @@ export default function SmartCourse({ user, onBackToHub }: SmartCourseProps) {
                   /* --- VIDEO LEARNING INTERFACE --- */
                   <div className="space-y-6 max-w-4xl mx-auto w-full">
                     <div className="aspect-video bg-black rounded-[32px] overflow-hidden shadow-xl border-4 border-white relative">
-                      <iframe 
-                        src={`https://www.youtube.com/embed/${extractYouTubeId(activeLesson.content_url || 'ptpA6eWRx4k')}?autoplay=0&rel=0`}
-                        title={activeLesson.title}
-                        className="w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        referrerPolicy="no-referrer"
+                      <iframe
+                          src={`https://www.youtube-nocookie.com/embed/${encodeURIComponent(
+                            extractYouTubeId(activeLesson.content_url || 'ptpA6eMx4k')
+                          )}?rel=0&modestbranding=1`}
+                          title={activeLesson.title}
+                          className="w-full h-full"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          referrerPolicy="strict-origin-when-cross-origin"
+                        />
                       ></iframe>
                     </div>
 
