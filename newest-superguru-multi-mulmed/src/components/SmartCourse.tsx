@@ -812,24 +812,36 @@ export default function SmartCourse({ user, onBackToHub }: SmartCourseProps) {
                   /* --- VIDEO LEARNING INTERFACE --- */
                   <div className="space-y-6 max-w-4xl mx-auto w-full">
                     <div className="aspect-video bg-black rounded-[32px] overflow-hidden shadow-xl border-4 border-white relative">
-                      <iframe
-                          src={`https://www.youtube-nocookie.com/embed/${encodeURIComponent(
-                            extractYouTubeId(activeLesson.content_url || 'ptpA6eMx4k')
-                          )}?rel=0&modestbranding=1`}
+                      {(!activeLesson.content_url || 
+                        activeLesson.content_url.includes('youtube.com') || 
+                        activeLesson.content_url.includes('youtu.be') || 
+                        activeLesson.content_url.length === 11) ? (
+                        <iframe 
+                          src={`https://www.youtube-nocookie.com/embed/${extractYouTubeId(activeLesson.content_url || 'ptpA6eWRx4k')}?autoplay=0&rel=0`}
                           title={activeLesson.title}
                           className="w-full h-full"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                           allowFullScreen
                           referrerPolicy="strict-origin-when-cross-origin"
-                        />
-                      ></iframe>
+                        ></iframe>
+                      ) : (
+                        <video 
+                          src={activeLesson.content_url}
+                          controls
+                          playsInline
+                          className="w-full h-full object-contain"
+                          poster="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
+                        >
+                          Browser Anda tidak mendukung tag video HTML5. Silakan gunakan link video langsung: <a href={activeLesson.content_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">{activeLesson.content_url}</a>
+                        </video>
+                      )}
                     </div>
 
                     <div className="bg-white p-6 rounded-[28px] border border-slate-200/50 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                       <div className="space-y-1">
                         <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2 py-0.5 rounded-full">Video Bahasa Indonesia</span>
                         <h4 className="text-lg font-display text-slate-900 font-bold italic">{activeLesson.title}</h4>
-                        <p className="text-xs text-slate-500 font-medium">Selesaikan menonton YouTube pembelajaran ini lalu tandai progresmu.</p>
+                        <p className="text-xs text-slate-500 font-medium">Selesaikan menonton video pembelajaran ini lalu tandai progresmu.</p>
                       </div>
 
                       <button 
